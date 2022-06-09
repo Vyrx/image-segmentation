@@ -80,18 +80,21 @@ class FCN(nn.Module):
         self.bn2 = nn.BatchNorm2d(args.nChannel)
         self.deconv3 = nn.ConvTranspose2d(args.nChannel, args.nChannel, kernel_size=3, stride=2, padding=1, dilation=1)
         self.bn3 = nn.BatchNorm2d(args.nChannel)
+        self.conv_final = nn.Conv2d(args.nChannel, args.nChannel, kernel_size=1, stride=1, padding=0 )
+        self.bn_final = nn.BatchNorm2d(args.nChannel)
         self.classifier = nn.Conv2d(args.nChannel, args.nChannel, kernel_size=1)
         
     def forward(self, x):
         output = self.pretrained_net(x)
         x3 = output['3']
         x2 = output['2']  
-        x1 = output['1']  
+        x1 = output['1']
         score = self.bn3(F.relu(self.deconv3(x3)))
         score = score + x2
         score = self.bn2(F.relu(self.deconv2(score)))
         score = score + x1
         score = self.bn1(F.relu(self.deconv1(score)))
+        score = self.bn_final(F.relu(self.conv_final(score)))
         score = self.classifier(score)
         return score
 
