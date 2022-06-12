@@ -16,8 +16,8 @@ def compute(y_pred, y_true):
 
 
 if __name__ == "__main__":
-    im_gt = cv2.imread("./PASCAL_VOC_2012/2008_003709.png")
-    im_predict = cv2.imread("output.png")
+    im_gt = cv2.imread("./images/2008_003709.jpg")
+    im_predict = cv2.imread("./images/k_means_3.jpg")
     col, row, _ = im_gt.shape
     diff_r, diff_c = (row - 481), (col - 321)
     resize_img = np.zeros((321, 481, 3))
