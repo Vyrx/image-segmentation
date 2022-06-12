@@ -16,8 +16,12 @@ def compute(y_pred, y_true):
 
 
 if __name__ == "__main__":
-    im_gt = cv2.imread("./images/2008_003709.jpg")
-    im_predict = cv2.imread("./images/k_means_3.jpg")
+    # ground truth is .png not .jpg
+    im_gt = cv2.imread("./PASCAL_VOC_2012/2008_003709.png")
+    im_predict = cv2.imread("./PASCAL_VOC_2012/k_means_3.jpg")
+    
+    # yours should not use this part
+    """
     col, row, _ = im_gt.shape
     diff_r, diff_c = (row - 481), (col - 321)
     resize_img = np.zeros((321, 481, 3))
@@ -28,15 +32,18 @@ if __name__ == "__main__":
             b += 1
         b = 0
         a += 1
+    """
 
-
-    label_gt = set( tuple(v) for m2d in resize_img for v in m2d )
-    labels_gt = np.zeros((321, 481))
+    label_gt = set( tuple(v) for m2d in im_gt for v in m2d )
+    labels_gt = np.zeros((333, 500))
     label_pre = set( tuple(v) for m2d in im_predict for v in m2d )
-    labels_pre = np.zeros((321, 481))
+    print(label_pre)
+    labels_pre = np.zeros((333, 500))
+    
+    # the object in ground truth image maybe different in 
     for i in range(321):
         for j in range(481):
-            if tuple(resize_img[i][j]) == (0, 0, 128) or tuple(resize_img[i][j])  == (0, 128, 0):
+            if tuple(im_gt[i][j]) == (0, 0, 128) or tuple(im_gt[i][j])  == (0, 128, 0):
                 labels_gt[i][j] = 1
             if tuple(im_predict[i][j]) == (144, 144, 80):
                 labels_pre[i][j] = 1
@@ -48,7 +55,7 @@ if __name__ == "__main__":
     print(ans)
 
 
-
+# check the rgb is which color 
 """
 x = np.zeros((50, 50, 3))
 for i in range(50):
