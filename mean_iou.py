@@ -40,7 +40,7 @@ if __name__ == "__main__":
     print(label_pre)
     labels_pre = np.zeros((333, 500))
     
-    # the object in ground truth image maybe different in 
+    # the object in ground truth image maybe different color 
     for i in range(321):
         for j in range(481):
             if tuple(im_gt[i][j]) == (0, 0, 128) or tuple(im_gt[i][j])  == (0, 128, 0):
