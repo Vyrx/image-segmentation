@@ -4,16 +4,16 @@ import matplotlib.pyplot as plt
 import cv2
 import os
 
-image_file = 'geo.jpeg' # Input image in images folder
-image_save = 'out.jpg'
+image_file = '2007_000063.jpg' # Input image in images folder
+image_save = '2007_000063_kmeans.png'
 k = 3 # Number of clusters
-pos_factor = 200 # How important the position of pixels is; Change the range of the dimension to 1 until pos_factor
+pos_factor = 100 # How important the position of pixels is; Change the range of the dimension to 1 until pos_factor
 
 ################
 
 #working_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
-image_path = os.path.join('images/', image_file)
+image_path = os.path.join('PASCAL/', image_file)
 
 # Read in the image
 image = cv2.imread(image_path)

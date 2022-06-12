@@ -17,8 +17,8 @@ def compute(y_pred, y_true):
 
 if __name__ == "__main__":
     # ground truth is .png not .jpg
-    im_gt = cv2.imread("./PASCAL_VOC_2012/2008_003709.png")
-    im_predict = cv2.imread("./PASCAL_VOC_2012/k_means_3.jpg")
+    im_gt = cv2.imread("./PASCAL/2008_003709.png")
+    im_predict = cv2.imread("./PASCAL/2008_003709_dbscan.png")
     
     # yours should not use this part
     """
@@ -45,24 +45,24 @@ if __name__ == "__main__":
         for j in range(481):
             if tuple(im_gt[i][j]) == (0, 0, 128) or tuple(im_gt[i][j])  == (0, 128, 0):
                 labels_gt[i][j] = 1
-            if tuple(im_predict[i][j]) == (144, 144, 80):
+            if tuple(im_predict[i][j]) == (101, 18, 71) or tuple(im_predict[i][j]) == (94, 11, 70):
                 labels_pre[i][j] = 1
-            if tuple(im_predict[i][j]) == (218, 129, 120):
+            if tuple(im_predict[i][j]) == (36, 231, 253):
                 labels_pre[i][j] = 2
-            if tuple(im_predict[i][j]) == (204, 81, 33):
+            if tuple(im_predict[i][j]) == (84, 1, 68):
                 labels_pre[i][j] = 0
     ans = compute(labels_pre, labels_gt)
     print(ans)
 
 
 # check the rgb is which color 
-"""
-x = np.zeros((50, 50, 3))
-for i in range(50):
-    for j in range(50):
-        # (144, 144, 80) : foreground
-        # (218, 129, 120) : light
-        # (204, 81, 33) : background
-        x[i][j] = (0.0, 0.0, 128.0)
-cv2.imwrite( "test.png", x )
-"""
+
+# x = np.zeros((50, 50, 3))
+# for i in range(50):
+#     for j in range(50):
+#         # (144, 144, 80) : foreground
+#         # (218, 129, 120) : light
+#         # (204, 81, 33) : background
+#         x[i][j] = (140, 136, 185)
+# cv2.imwrite( "test.png", x )
+

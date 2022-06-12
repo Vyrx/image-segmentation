@@ -17,11 +17,12 @@ def compute(y_pred, y_true):
 
 if __name__ == "__main__":
     # ground truth is .png not .jpg
-    im_gt = cv2.imread("./PASCAL_VOC_2012/2007_000063.png")
-    im_predict = cv2.imread("./PASCAL_VOC_2012/2007_000063_FCN.png")
+    im_gt = cv2.imread("./PASCAL/2007_000063.png")
+    im_predict = cv2.imread("./PASCAL/2007_000063_dbscan.png")
     
     # yours should not use this part
     
+    '''
     col, row, _ = im_gt.shape
     diff_r, diff_c = (row - 481), (col - 321)
     resize_img = np.zeros((321, 481, 3))
@@ -32,12 +33,14 @@ if __name__ == "__main__":
             b += 1
         b = 0
         a += 1
+    '''
     
 
     label_gt = set( tuple(v) for m2d in im_gt for v in m2d )
     #print(label_gt)
     labels_gt = np.ones((321, 481))
     label_pre = set( tuple(v) for m2d in im_predict for v in m2d )
+    print(label_pre)
     labels_pre = np.zeros((321, 481))
     
     # the object in ground truth image maybe different color than predicted image
@@ -48,11 +51,11 @@ if __name__ == "__main__":
                 labels_gt[i][j] = 0
             if tuple(im_gt[i][j]) == (0, 0, 128):
                 labels_gt[i][j] = 2
-            if tuple(im_predict[i][j]) == (121, 242, 226):
+            if tuple(im_predict[i][j]) == (124, 47, 70):
                 labels_pre[i][j] = 1
-            if tuple(im_predict[i][j]) == (188, 63, 7):
+            if tuple(im_predict[i][j]) == (87, 3, 68):
                 labels_pre[i][j] = 2
-            if tuple(im_predict[i][j]) == (124, 157, 204):
+            if tuple(im_predict[i][j]) == (36, 231, 253):
                 labels_pre[i][j] = 0
     ans = compute(labels_pre, labels_gt)
     print(ans)
